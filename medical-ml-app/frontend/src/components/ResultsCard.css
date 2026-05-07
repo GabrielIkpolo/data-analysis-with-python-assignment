@@ -1,0 +1,237 @@
+.results-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.results-card {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  background: var(--light);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.close-btn:hover {
+  background: var(--danger);
+  color: var(--white);
+  transform: rotate(90deg);
+}
+
+.results-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: var(--white);
+  padding: 2rem;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  position: relative;
+}
+
+.results-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.results-title h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.results-title p {
+  font-size: 0.95rem;
+  opacity: 0.95;
+}
+
+.results-content {
+  padding: 2rem;
+}
+
+.diabetes-results,
+.recovery-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.prediction-box,
+.probability-box,
+.confidence-box,
+.model-info,
+.r2-box {
+  background: var(--light);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.prediction-label,
+.probability-label,
+.confidence-label,
+.model-label,
+.r2-label {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.prediction-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.prediction-value.danger {
+  color: var(--danger);
+}
+
+.prediction-value.warning {
+  color: var(--warning);
+}
+
+.prediction-value.success {
+  color: var(--success);
+}
+
+.probability-bar {
+  flex: 1;
+  margin: 0 1rem;
+  height: 8px;
+  background: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.probability-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+
+.probability-value {
+  font-weight: 600;
+  color: var(--primary);
+  min-width: 60px;
+  text-align: right;
+}
+
+.confidence-value {
+  font-size: 1.1rem;
+  color: var(--success);
+}
+
+.model-value {
+  font-size: 1.1rem;
+  color: var(--primary);
+}
+
+.r2-value {
+  font-size: 1.1rem;
+  color: var(--secondary);
+}
+
+.interpretation-box {
+  background: var(--light);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+}
+
+.interpretation-box h3 {
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.interpretation-box p {
+  color: var(--dark);
+  line-height: 1.6;
+}
+
+.results-footer {
+  padding: 1rem 2rem;
+  border-top: 2px solid var(--light);
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-secondary {
+  padding: 0.75rem 2rem;
+  background: var(--light);
+  color: var(--dark);
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #e9ecef;
+  border-color: #dee2e6;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .results-overlay {
+    padding: 1rem;
+  }
+
+  .results-card {
+    width: 100%;
+  }
+
+  .results-header {
+    padding: 1.5rem;
+  }
+
+  .results-content {
+    padding: 1.5rem;
+  }
+}
