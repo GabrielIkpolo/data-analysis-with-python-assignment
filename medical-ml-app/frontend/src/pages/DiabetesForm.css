@@ -80,6 +80,13 @@
   color: var(--gray);
 }
 
+.hint {
+  font-size: 0.75rem;
+  color: var(--gray);
+  margin-top: -0.25rem;
+  font-style: italic;
+}
+
 .form-actions {
   margin-top: 1rem;
   display: flex;

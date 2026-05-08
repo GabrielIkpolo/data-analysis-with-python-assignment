@@ -1,19 +1,47 @@
+import React, { useState, useEffect } from 'react';
 import './DiabetesForm.css'
 
 function DiabetesForm({ onSubmit }) {
+  const [formData, setFormData] = useState({
+    Age: '',
+    BMI: '',
+    Systolic_BP: '',
+    Diastolic_BP: '',
+    Hypertension: false,
+    Obesity: false
+  });
+
+  // Automatically update conditions based on vitals
+  useEffect(() => {
+    const bmi = parseFloat(formData.BMI);
+    const systolic = parseFloat(formData.Systolic_BP);
+    const diastolic = parseFloat(formData.Diastolic_BP);
+
+    setFormData(prev => ({
+      ...prev,
+      Obesity: !prev.Obesity && bmi >= 30 ? true : prev.Obesity,
+      Hypertension: !prev.Hypertension && (systolic >= 140 || diastolic >= 90) ? true : prev.Hypertension
+    }));
+  }, [formData.BMI, formData.Systolic_BP, formData.Diastolic_BP]);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    const formData = new FormData(e.target)
-    const data = Object.fromEntries(formData.entries())
     
-    // Convert types to match the backend model requirements
     const formattedData = {
-      Age: parseFloat(data.Age),
-      BMI: parseFloat(data.BMI),
-      Systolic_BP: parseFloat(data.Systolic_BP),
-      Diastolic_BP: parseFloat(data.Diastolic_BP),
-      Hypertension: data.Hypertension === 'true',
-      Obesity: data.Obesity === 'true'
+      Age: parseFloat(formData.Age),
+      BMI: parseFloat(formData.BMI),
+      Systolic_BP: parseFloat(formData.Systolic_BP),
+      Diastolic_BP: parseFloat(formData.Diastolic_BP),
+      Hypertension: formData.Hypertension,
+      Obesity: formData.Obesity
     }
     onSubmit(formattedData)
   }
@@ -41,6 +69,8 @@ function DiabetesForm({ onSubmit }) {
                   max="120"
                   required
                   placeholder="Enter age"
+                  value={formData.Age}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -55,7 +85,10 @@ function DiabetesForm({ onSubmit }) {
                   max="70"
                   required
                   placeholder="Enter BMI"
+                  value={formData.BMI}
+                  onChange={handleChange}
                 />
+                <span className="hint">Obesity: BMI ≥ 30</span>
               </div>
             </div>
 
@@ -70,7 +103,10 @@ function DiabetesForm({ onSubmit }) {
                   max="250"
                   required
                   placeholder="Enter systolic BP"
+                  value={formData.Systolic_BP}
+                  onChange={handleChange}
                 />
+                <span className="hint">Hypertension: ≥ 140 mmHg</span>
               </div>
 
               <div className="form-group">
@@ -83,7 +119,10 @@ function DiabetesForm({ onSubmit }) {
                   max="150"
                   required
                   placeholder="Enter diastolic BP"
+                  value={formData.Diastolic_BP}
+                  onChange={handleChange}
                 />
+                <span className="hint">Hypertension: ≥ 90 mmHg</span>
               </div>
             </div>
           </div>
@@ -93,7 +132,7 @@ function DiabetesForm({ onSubmit }) {
 
             <div className="form-group">
               <label htmlFor="hypertension">Hypertension</label>
-              <select id="hypertension" name="Hypertension" required>
+              <select id="hypertension" name="Hypertension" required value={formData.Hypertension ? "true" : "false"} onChange={handleChange}>
                 <option value="false">No</option>
                 <option value="true">Yes</option>
               </select>
@@ -101,7 +140,7 @@ function DiabetesForm({ onSubmit }) {
 
             <div className="form-group">
               <label htmlFor="obesity">Obesity</label>
-              <select id="obesity" name="Obesity" required>
+              <select id="obesity" name="Obesity" required value={formData.Obesity ? "true" : "false"} onChange={handleChange}>
                 <option value="false">No</option>
                 <option value="true">Yes</option>
               </select>

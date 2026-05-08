@@ -56,6 +56,7 @@ function RecoveryForm({ onSubmit }) {
                   required
                   placeholder="Enter temperature"
                 />
+                <span className="hint">Fever is generally ≥ 38.0°C</span>
               </div >
             </div>
           </div>
@@ -75,6 +76,7 @@ function RecoveryForm({ onSubmit }) {
                   required
                   placeholder="Enter parasite density"
                 />
+                <span className="hint">High density (&gt; 50,000/µL) indicates severity</span>
               </div >
 
               <div className="form-group">
@@ -83,6 +85,7 @@ function RecoveryForm({ onSubmit }) {
                   <option value="false">No</option>
                   <option value="true">Yes</option>
                 </select>
+                <span className="hint">Select 'Yes' if temp ≥ 38.0°C</span>
               </div >
             </div>
 
