@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from app.utils.model_loader import load_model
 import numpy as np
+import pandas as pd
 
 router = APIRouter()
 
@@ -44,20 +45,21 @@ async def predict_recovery(request: RecoveryRequest):
         load_recovery_model()
 
         # Prepare features
-        numeric_features = [
-            request.Age,
-            request.Admission_Temp,
-            request.Parasite_Density,
-            1 if request.High_Fever else 0,
-            1 if request.Severe_Density else 0
-        ]
+        input_df = pd.DataFrame([{
+            "Age": request.Age,
+            "Admission_Temp": request.Admission_Temp,
+            "Parasite_Density": request.Parasite_Density,
+            "High_Fever": 1 if request.High_Fever else 0,
+            "Severe_Density": 1 if request.Severe_Density else 0,
+            "Treatment_Protocol": request.Treatment_Protocol
+        }])
 
         # Get prediction
-        predicted_days = float(recovery_model.predict([numeric_features])[0])
+        predicted_days = float(recovery_model.predict(input_df)[0])
 
         # Calculate 95% confidence interval (using model's residual std as approximation)
         r_squared = getattr(recovery_model, 'r2_score', 0.82)  # Default value
-        std_error = np.sqrt((1 - r_squared) / (len(numeric_features) - 2))
+        std_error = np.sqrt((1 - r_squared) / (len(input_df.columns) - 2))
         confidence_interval = 1.96 * std_error
         lower_bound = max(0, predicted_days - confidence_interval)
         upper_bound = predicted_days + confidence_interval

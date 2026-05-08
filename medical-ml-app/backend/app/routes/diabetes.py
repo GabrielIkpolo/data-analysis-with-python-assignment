@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from app.utils.model_loader import load_model
 import numpy as np
+import pandas as pd
 
 router = APIRouter()
 
@@ -43,18 +44,18 @@ async def predict_diabetes(request: DiabetesRequest):
         load_diabetes_model()
 
         # Prepare features in the same order as training
-        features = np.array([[
-            request.Age,
-            request.BMI,
-            request.Systolic_BP,
-            request.Diastolic_BP,
-            1 if request.Hypertension else 0,
-            1 if request.Obesity else 0
-        ]])
+        input_df = pd.DataFrame([{
+            "Age": request.Age,
+            "BMI": request.BMI,
+            "Systolic_BP": request.Systolic_BP,
+            "Diastolic_BP": request.Diastolic_BP,
+            "Hypertension": 1 if request.Hypertension else 0,
+            "Obesity": 1 if request.Obesity else 0
+        }])
 
         # Get prediction
-        prediction = diabetes_model.predict(features)[0]
-        probability = diabetes_model.predict_proba(features)[0, 1] if hasattr(
+        prediction = diabetes_model.predict(input_df)[0]
+        probability = diabetes_model.predict_proba(input_df)[0, 1] if hasattr(
             diabetes_model, "predict_proba"
         ) else 0.5
 

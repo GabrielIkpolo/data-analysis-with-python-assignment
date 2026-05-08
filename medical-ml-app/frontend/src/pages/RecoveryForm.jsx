@@ -24,7 +24,7 @@ function RecoveryForm({ onSubmit }) {
         <div className="form-header">
           <h2>Patient Recovery Forecast</h2>
           <p>Predict expected length of hospital stay</p>
-        </div>
+        </div >
 
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-section">
@@ -42,7 +42,7 @@ function RecoveryForm({ onSubmit }) {
                   required
                   placeholder="Enter age"
                 />
-              </div>
+              </div >
 
               <div className="form-group">
                 <label htmlFor="temp">Admission Temperature (°C)</label>
@@ -56,7 +56,7 @@ function RecoveryForm({ onSubmit }) {
                   required
                   placeholder="Enter temperature"
                 />
-              </div>
+              </div >
             </div>
           </div>
 
@@ -75,7 +75,7 @@ function RecoveryForm({ onSubmit }) {
                   required
                   placeholder="Enter parasite density"
                 />
-              </div>
+              </div >
 
               <div className="form-group">
                 <label htmlFor="highFever">High Fever</label>
@@ -83,7 +83,7 @@ function RecoveryForm({ onSubmit }) {
                   <option value="false">No</option>
                   <option value="true">Yes</option>
                 </select>
-              </div>
+              </div >
             </div>
 
             <div className="form-row">
@@ -93,7 +93,7 @@ function RecoveryForm({ onSubmit }) {
                   <option value="false">No</option>
                   <option value="true">Yes</option>
                 </select>
-              </div>
+              </div >
 
               <div className="form-group">
                 <label htmlFor="protocol">Treatment Protocol</label>
@@ -103,7 +103,7 @@ function RecoveryForm({ onSubmit }) {
                   <option value="ACT_plus_Antibiotic">ACT + Antibiotic</option>
                   <option value="ACT_Only">ACT Only</option>
                 </select>
-              </div>
+              </div >
             </div>
           </div>
 
@@ -111,9 +111,9 @@ function RecoveryForm({ onSubmit }) {
             <button type="submit" className="btn-primary">
               Predict Recovery
             </button>
-          </div>
+          </div >
         </form>
-      </div>
+      </div >
 
       <div className="info-card">
         <h3 className="info-title">📋 Information</h3>
@@ -122,9 +122,9 @@ function RecoveryForm({ onSubmit }) {
           <li>Predicts recovery days based on clinical indicators</li>
           <li>Features: Age, Admission Temp, Parasite Density, Fever/Density status, Treatment Protocol</li>
           <li>R² Score: 0.82 (Good fit)</li>
-        </ul>
-      </div>
-    </div>
+        </ul >
+      </div >
+    </div >
   )
 }
 
