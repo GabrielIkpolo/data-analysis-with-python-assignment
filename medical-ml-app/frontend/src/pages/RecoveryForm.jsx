@@ -5,7 +5,17 @@ function RecoveryForm({ onSubmit }) {
     e.preventDefault()
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData.entries())
-    onSubmit(data)
+    
+    // Convert types to match the backend model requirements
+    const formattedData = {
+      Age: parseFloat(data.Age),
+      Admission_Temp: parseFloat(data.Admission_Temp),
+      Parasite_Density: parseFloat(data.Parasite_Density),
+      High_Fever: data.High_Fever === 'true',
+      Severe_Density: data.Severe_Density === 'true',
+      Treatment_Protocol: data.Treatment_Protocol
+    }
+    onSubmit(formattedData)
   }
 
   return (
@@ -18,7 +28,7 @@ function RecoveryForm({ onSubmit }) {
 
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-section">
-            <h3>Patient Demographics</h3>
+            <h3 className="form-section-title">Patient Demographics</h3>
 
             <div className="form-row">
               <div className="form-group">
@@ -51,7 +61,7 @@ function RecoveryForm({ onSubmit }) {
           </div>
 
           <div className="form-section">
-            <h3>Medical Indicators</h3>
+            <h3 className="form-section-title">Medical Indicators</h3>
 
             <div className="form-row">
               <div className="form-group">
@@ -89,14 +99,9 @@ function RecoveryForm({ onSubmit }) {
                 <label htmlFor="protocol">Treatment Protocol</label>
                 <select id="protocol" name="Treatment_Protocol" required>
                   <option value="">Select protocol</option>
-                  <option value="Artemisinin">Artemisinin</option>
-                  <option value="Chloroquine">Chloroquine</option>
-                  <option value="Mefloquine">Mefloquine</option>
-                  <option value="Sulfadoxine-Pyrimethamine">
-                    Sulfadoxine-Pyrimethamine
-                  </option>
-                  <option value="Doxycycline">Doxycycline</option>
-                  <option value="Amodiaquine">Amodiaquine</option>
+                  <option value="Quinine_IV">Quinine IV</option>
+                  <option value="ACT_plus_Antibiotic">ACT + Antibiotic</option>
+                  <option value="ACT_Only">ACT Only</option>
                 </select>
               </div>
             </div>
@@ -111,11 +116,11 @@ function RecoveryForm({ onSubmit }) {
       </div>
 
       <div className="info-card">
-        <h3>📋 Information</h3>
-        <ul>
+        <h3 className="info-title">📋 Information</h3>
+        <ul className="info-list">
           <li>Uses Linear Regression Model</li>
           <li>Predicts recovery days based on clinical indicators</li>
-          <li>Features: Age, Temperature, Parasite Density, Treatment</li>
+          <li>Features: Age, Admission Temp, Parasite Density, Fever/Density status, Treatment Protocol</li>
           <li>R² Score: 0.82 (Good fit)</li>
         </ul>
       </div>

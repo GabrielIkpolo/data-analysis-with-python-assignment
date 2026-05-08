@@ -5,7 +5,17 @@ function DiabetesForm({ onSubmit }) {
     e.preventDefault()
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData.entries())
-    onSubmit(data)
+    
+    // Convert types to match the backend model requirements
+    const formattedData = {
+      Age: parseFloat(data.Age),
+      BMI: parseFloat(data.BMI),
+      Systolic_BP: parseFloat(data.Systolic_BP),
+      Diastolic_BP: parseFloat(data.Diastolic_BP),
+      Hypertension: data.Hypertension === 'true',
+      Obesity: data.Obesity === 'true'
+    }
+    onSubmit(formattedData)
   }
 
   return (
@@ -109,9 +119,9 @@ function DiabetesForm({ onSubmit }) {
       <div className="info-card">
         <h3>📋 Information</h3>
         <ul>
-          <li>Uses Decision Tree Classifier (AUC: 0.82)</li>
+          <li>Uses Decision Tree Classifier</li>
           <li>Predicts diabetes risk based on vitals</li>
-          <li>Features: Age, BMI, Blood Pressure, Hypertension, Obesity</li>
+          <li>Features: Age, BMI, Blood Pressure (Systolic/Diastolic), Hypertension, Obesity</li>
           <li>High accuracy for clinical decision support</li>
         </ul>
       </div>
