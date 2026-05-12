@@ -8,7 +8,7 @@ The system implements two primary clinical intelligence modules:
 
 ### 1. Metabolic Syndrome - Diabetes Risk Predictor
 * **Objective:** Early identification of patients at risk of Type 2 Diabetes.
-* **Model Type:** Supervised Classification.
+* **Model Type:** Supervised Classification (Decision Tree).
 * **Key Features:** BMI, Fasting Blood Sugar, Systolic/Diastolic Blood Pressure, Age, and Lifestyle factors.
 * **Clinical Focus:** Optimized for **High Recall** to ensure that potential diabetic patients are not missed (minimizing False Negatives).
 
@@ -124,9 +124,9 @@ This is the most efficient way to run the entire system with a single command. I
 
 ## 📈 Key Technical Achievements
 
-* **High-Fidelity Modeling:** Achieved robust performance metrics including high **Recall** for diabetes diagnosis and low **MAPE** for malaria recovery forecasting.
+* **High-Fidelity Modeling:** Achieved strong performance metrics including high **Recall** for diabetes diagnosis and low **MAPE** for malaria recovery forecasting.
 * **Production-Grade API:** Implemented a scalable, validated RESTful API using **FastAPI** and **Pydantic**.
-* **Robust Deployment:** Demonstrated end-to-end containerization with **Docker**, ensuring "works on my machine" reliability.
+* **Robust Deployment:** Demonstrated end-to-end containerization with **Docker**, ensuring it works consistently across devices.
 
 ---
 *Developed as part of the SIWES training program at New Horizons Nigeria.*
