@@ -31,8 +31,6 @@ pip-delete-this-directory.txt
 ehthumbs.db
 Thumbs.db
 
-# Machine Learning Models (Optional: exclude if they are large)
-# models/*.pkl
-# models/*.joblib
-TODO.md
-SIWES-Guide.md
+# SIWES Report files
+plan.md
+chapter_*.md
